@@ -156,7 +156,23 @@ RocketMq会定时遍历commitlog中的预备消息。因为预备消息最终肯
 水平分表，按照字段拆分
 
 ### HashMap,ConcurrentHashap,ArrayList和CopyOnWriteList原理，如何加锁
+- HashMap<br>
+JDK1.8 之前 HashMap 底层是 数组和链表
+JDK1.8 HashMap 底层是 数组和链表和红黑树
+- ConcurrentHashMap<br>
+1.7
+数据结构：数组＋单链表
+并发机制：采用分段锁机制细化锁粒度，降低阻塞，从而提高并发性。
 
+1.8
+数据结构：数组＋单链表＋红黑树
+并发机制：取消分段锁，之后基于 CAS + synchronized 实现。
+- ArrayList <br>
+ArrayList 的底层是数组队列，相当于动态数组，不保证线程安全
+- CopyOnWriteArrayList <br>
+内部维护了一个数组，成员变量array就指向这个内部数组，所有的读操作都是基于 array 进行的
+执行写时复制操作，需要使用可重入锁加锁,reentrantLock
+读操作是不用加锁的，性能很高
 
 ### 13.redis集群架构有哪些，原理是啥
 - Replication+Sentinel<br>
