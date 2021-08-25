@@ -158,7 +158,8 @@ RocketMq会定时遍历commitlog中的预备消息。因为预备消息最终肯
 ### HashMap,ConcurrentHashap,ArrayList和CopyOnWriteList原理，如何加锁
 - HashMap<br>
 JDK1.8 之前 HashMap 底层是 数组和链表
-JDK1.8 HashMap 底层是 数组和链表和红黑树
+JDK1.8 HashMap 底层是 数组和链表和红黑树。
+加锁用synchronized，Lock
 - ConcurrentHashMap<br>
 1.7
 数据结构：数组＋单链表
@@ -168,7 +169,8 @@ JDK1.8 HashMap 底层是 数组和链表和红黑树
 数据结构：数组＋单链表＋红黑树
 并发机制：取消分段锁，之后基于 CAS + synchronized 实现。
 - ArrayList <br>
-ArrayList 的底层是数组队列，相当于动态数组，不保证线程安全
+ArrayList 的底层是数组队列，相当于动态数组，不保证线程安全.
+加锁：Collections.synchronizedList
 - CopyOnWriteArrayList <br>
 内部维护了一个数组，成员变量array就指向这个内部数组，所有的读操作都是基于 array 进行的
 执行写时复制操作，需要使用可重入锁加锁,reentrantLock
